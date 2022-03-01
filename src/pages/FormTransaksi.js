@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Modal } from "bootstrap";
-import { baseUrl } from "../config";
+import { baseUrl, authorization } from "../config";
 
 export default class FormTransaksi extends React.Component {
   constructor() {
@@ -23,9 +23,9 @@ export default class FormTransaksi extends React.Component {
   }
 
   getMember() {
-    let endpoint = "http://localhost:8000/api/member";
+    let endpoint = `${baseUrl}/transaksi`;
     axios
-      .get(endpoint)
+      .get(endpoint, authorization)
       .then((response) => {
         this.setState({ members: response.data });
       })
@@ -70,9 +70,9 @@ export default class FormTransaksi extends React.Component {
   }
 
   getPaket() {
-    let endpoint = "http://localhost:8000/api/paket";
+    let endpoint = `${baseUrl}/transaksi`;
     axios
-      .get(endpoint)
+      .get(endpoint, authorization)
       .then((response) => {
         this.setState({ pakets: response.data });
       })
@@ -119,7 +119,7 @@ export default class FormTransaksi extends React.Component {
     };
 
     axios
-      .post(endpoint, newData)
+      .post(endpoint, newData, authorization)
       .then((response) => {
         window.alert(response.data.message);
       })

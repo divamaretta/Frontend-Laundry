@@ -2,7 +2,7 @@ import React from "react";
 import "./Pages.css";
 import { Modal } from "bootstrap";
 import axios from "axios";
-import { baseUrl } from "../config";
+import { baseUrl, authorization } from "../config";
 
 //nama class member sesuai dengan file
 class Member extends React.Component {
@@ -85,7 +85,7 @@ class Member extends React.Component {
 
       //this.setState({members: temp})
       axios
-        .post(endpoint, newMember)
+        .post(endpoint, newMember, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -102,7 +102,7 @@ class Member extends React.Component {
         jenis_kelamin: this.state.jenis_kelamin,
       };
       axios
-        .put(endpoint, newMember)
+        .put(endpoint, newMember, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -153,7 +153,7 @@ class Member extends React.Component {
 
       let endpoint = `${baseUrl}/member` + id_member;
       axios
-        .delete(endpoint)
+        .delete(endpoint, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -174,7 +174,7 @@ class Member extends React.Component {
   getData() {
     let endpoint = `${baseUrl}/member`;
     axios
-      .get(endpoint)
+      .get(endpoint, authorization)
       .then((response) => {
         this.setState({ members: response.data });
       })

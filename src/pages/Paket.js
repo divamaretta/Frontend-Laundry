@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
-import { baseUrl } from "../config";
+import { baseUrl, authorization } from "../config";
 
 //nama class paket sesuai dengan file
 class Paket extends React.Component {
@@ -44,7 +44,7 @@ class Paket extends React.Component {
       // this.setState({ members: temp });
 
       axios
-        .post(endpoint, data)
+        .post(endpoint, data, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -59,7 +59,7 @@ class Paket extends React.Component {
         harga: this.state.harga,
       };
       axios
-        .put(endpoint, data)
+        .put(endpoint, data, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -105,7 +105,7 @@ class Paket extends React.Component {
 
       let endpoint = `${baseUrl}/paket` + id_paket;
       axios
-        .delete(endpoint)
+        .delete(endpoint, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -125,7 +125,7 @@ class Paket extends React.Component {
   getData() {
     let endpoint =  `${baseUrl}/paket`;
     axios
-      .get(endpoint)
+      .get(endpoint, authorization)
       .then((response) => {
         this.setState({
           list_paket: response.data,

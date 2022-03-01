@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { baseUrl } from "../config";
+import { baseUrl, authorization } from "../config";
 
 class Transaksi extends React.Component {
   constructor() {
@@ -13,7 +13,7 @@ class Transaksi extends React.Component {
     let endpoint = `${baseUrl}/transaksi`;
 
     axios
-      .get(endpoint)
+      .get(endpoint, authorization)
       .then((response) => {
         let dataTransaksi = response.data;
         for (let i = 0; i < dataTransaksi.length; i++) {
@@ -90,7 +90,7 @@ class Transaksi extends React.Component {
       };
 
       axios
-        .post(endpoint, data)
+        .post(endpoint, data, authorization)
         .then((response) => {
           window.alert(`Status transaksi telah diubah`);
           this.getData();
@@ -121,7 +121,7 @@ class Transaksi extends React.Component {
     if (window.confirm(`Apakah anda yakin mengubah status pembayaran ini?`)) {
       let endpoint = `${baseUrl}/transaksi/bayar/${id}`;
       axios
-        .get(endpoint)
+        .get(endpoint, authorization)
         .then((response) => {
           window.alert(`Status pembayaran telah diubah`);
           this.getData();
@@ -133,7 +133,7 @@ class Transaksi extends React.Component {
   deleteTransaksi(id) {
     if (window.confirm(`Apakah anda yakin menghapus transaksi ini ?`)) {
       let endpoint = `${baseUrl}/transaksi/${id}`
-      axios.delete(endpoint)
+      axios.delete(endpoint, authorization)
       .then(response => {
         window.alert(response.data.message)
         this.getData()

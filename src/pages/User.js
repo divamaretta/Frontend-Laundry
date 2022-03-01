@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
-import { baseUrl } from "../config";
+import { baseUrl, authorization } from "../config";
 
 //nama class member sesuai dengan file
 class User extends React.Component {
@@ -58,7 +58,7 @@ class User extends React.Component {
 
       //this.setState({users: temp})
       axios
-        .post(endpoint, newUser)
+        .post(endpoint, newUser, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -75,7 +75,7 @@ class User extends React.Component {
         role: this.state.role,
       };
       axios
-        .put(endpoint, newUser)
+        .put(endpoint, newUser, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -124,7 +124,7 @@ class User extends React.Component {
 
       let endpoint = `${baseUrl}/users` + id_user;
       axios
-        .delete(endpoint)
+        .delete(endpoint, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -144,7 +144,7 @@ class User extends React.Component {
   getData() {
     let endpoint = `${baseUrl}/users`;
     axios
-      .get(endpoint)
+      .get(endpoint, authorization)
       .then((response) => {
         this.setState({ users: response.data });
         console.log(response.data);
