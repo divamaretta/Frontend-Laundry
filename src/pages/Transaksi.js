@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { baseUrl, authorization } from "../config";
+import ReactToPdf from "react-to-pdf";
+import domToPdf from "dom-to-pdf";
 
 class Transaksi extends React.Component {
   constructor() {
@@ -141,14 +143,46 @@ class Transaksi extends React.Component {
       .catch(error => console.log(error))
     }
   }
+
+  convertPdf(){
+    //ambil elemen yang akan di convert ke PDF
+    let element = document.getElementById(`target`)
+    let options = {
+      filename: "coba.pdf"
+    }
+
+    domToPdf(element, options, () => {
+      window.alert("File will download soon")
+    })
+  }
   render() {
+    const target = React.createRef()
+    const optionPDF = {
+      orientation: `landscape`,
+      unit: `cm`,
+      format: [21, 29.7]
+    }
     return (
       <div className="card">
         <div className="card-header bg-info">
           <h4 className="text-white">List Transaksi</h4>
         </div>
         <div className="card-body">
-          <ul className="list-group">
+        {/*{<ReactToPdf targetRef={target} filename="coba.pdf"
+        scale={0.8} options={optionPDF}>
+            {({toPdf}) => (
+              <button className="btn btn-danger"
+              onClick={toPdf}>
+              Generate PDF
+              </button>
+            )}
+            </ReactToPdf>} */}
+            <butoon className="btn btn-danger"
+            onClick={() => this.convertPdf()}>
+              Convert to PDF
+            </butoon>
+          <ul className="list-group" ref={target}>
+          <h3> List Transaksi </h3>
             {this.state.transaksi.map((trans) => (
               <li className="list-group-item">
                 <div className="row">
