@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { baseUrl, authorization } from "../config";
 import ReactToPdf from "react-to-pdf";
-import domToPdf from "dom-to-pdf";
+import domToPdf from 'dom-to-pdf'
 
 class Transaksi extends React.Component {
   constructor() {
@@ -78,10 +78,7 @@ class Transaksi extends React.Component {
       return <div className="badge bg-success">Telah diambil</div>;
     }
   }
-  componentDidMount() {
-    this.getData();
-  }
-
+  
   changeStatus(id, status) {
     if (
       window.confirm(`Apakah anda yakin ingin mengganti status transaksi ini?`)
@@ -145,22 +142,33 @@ class Transaksi extends React.Component {
   }
 
   convertPdf(){
-    //ambil elemen yang akan di convert ke PDF
-    let element = document.getElementById(`target`)
+    //ambil elemen yang akan di convert
+    let element = document.getElementById(`topdf`)
     let options = {
-      filename: "coba.pdf"
+        filename : "laporan.pdf"
     }
-
     domToPdf(element, options, () => {
-      window.alert("File will download soon")
+        window.alert("File akan segera di Download")
     })
-  }
+}
+componentDidMount(){
+    this.getData()
+    let user = JSON.parse(localStorage.getItem("user"))
+    this.setState({role: user.role})
+
+    if(user.role === "Admin" || user.role === "Kasir"){
+        this.setState({visible: true})
+    }else{
+        this.setState({visible: false})
+    }
+}
   render() {
     const target = React.createRef()
-    const optionPDF = {
-      orientation: `landscape`,
-      unit: `cm`,
-      format: [21, 29.7]
+    const target2 = React.createRef()
+    const optionPdf = {
+        orientation: `landscape`,
+        unit: `cm`,
+        format: [21 , 29.7],
     }
     return (
       <div className="card">
@@ -177,11 +185,8 @@ class Transaksi extends React.Component {
               </button>
             )}
             </ReactToPdf>} */}
-            <butoon className="btn btn-danger"
-            onClick={() => this.convertPdf()}>
-              Convert to PDF
-            </butoon>
-          <ul className="list-group" ref={target}>
+            <button className="btn btn-success" onClick={() => this.convertPdf()}>Generate PDF</button>
+          <ul className="list-group" ref={target} id="topdf">
           <h3> List Transaksi </h3>
             {this.state.transaksi.map((trans) => (
               <li className="list-group-item">
@@ -207,12 +212,12 @@ class Transaksi extends React.Component {
                   </div>
                   {/* Status Area */}
                   <div className="col-lg-3">
-                    <small className="text-info">Status</small>
+                    <small className="text-info">Status Transaksi</small>
                     {this.convertStatus(trans.id_transaksi, trans.status)}
                   </div>
                   {/* Status Pembayaran Area */}
                   <div className="col-lg-3">
-                    <small className="text-info">Status Pembayaran</small>{" "}
+                    <small className="text-info">Status Pembayaran</small>
                     <br />
                     {this.convertStatusBayar(trans.id_transaksi, trans.dibayar)}
                   </div>
