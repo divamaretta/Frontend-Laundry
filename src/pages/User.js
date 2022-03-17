@@ -8,7 +8,7 @@ class User extends React.Component {
   constructor() {
     super();
     this.state = {
-      id_user: "",
+      id_user: 0,
       nama: "",
       username: "",
       password: "",
@@ -66,7 +66,7 @@ class User extends React.Component {
         .catch((error) => console.log(error));
     } else if (this.state.action === "ubah") {
       this.modalUser.hide();
-      let endpoint = `${baseUrl}/users` + this.state.id_user;
+      let endpoint = `${baseUrl}/users/` + this.state.id_user;
       let newUser = {
         id_user: this.state.id_user,
         nama: this.state.nama,
@@ -106,13 +106,13 @@ class User extends React.Component {
     //mencari posisi index dari data user
     //berdasarkan id user nya pada array "users"
 
-    let index = this.state.users.findIndex((user) => user.id_user === id_user);
+    let index = this.state.users.findIndex((user) => user.id_user == id_user);
 
     this.setState({
       id_user: this.state.users[index].id_user,
       nama: this.state.users[index].nama,
       username: this.state.users[index].username,
-      password: this.state.users[index].password,
+      password: "",
       role: this.state.users[index].role,
       action: "ubah",
     });
@@ -122,7 +122,7 @@ class User extends React.Component {
     if (window.confirm("Apakah anda yakin menghapus data ini?")) {
       //mencari posisi index dari data yang akan dihapus
 
-      let endpoint = `${baseUrl}/users` + id_user;
+      let endpoint = `${baseUrl}/users/${id_user}`
       axios
         .delete(endpoint, authorization)
         .then((response) => {
@@ -147,7 +147,6 @@ class User extends React.Component {
       .get(endpoint, authorization)
       .then((response) => {
         this.setState({ users: response.data });
-        console.log(response.data);
       })
       .catch((error) => console.log(error));
   }
@@ -162,7 +161,7 @@ class User extends React.Component {
     })
 
     //cara kedua
-    if (this.state.role === "Admin" || this.state.role === "kasir") {
+    if (user.role === "Admin" || user.role === "kasir") {
       this.setState({
         visible : true
       })     
@@ -174,7 +173,7 @@ class User extends React.Component {
 }
 
 showAddButton() {
-  if (this.state.role === "Admin" || this.state.role === "kasir") {
+  if (this.state.role === "Admin" || this.state.role === "Kasir") {
     return (
       <button
         className="btn btn-success me-md-2"
@@ -192,7 +191,6 @@ showAddButton() {
         <div className="card-header bg-primary">
           <h4 className="text-white">List Daftar User</h4>
         </div>
-
         <div className="card-body">
           <ul className="list-group">
             {this.state.users.map((user) => (
@@ -214,16 +212,16 @@ showAddButton() {
                     {user.role}
                   </div>
                   {/*bagian untuk password*/}
-                  <div className="col-lg-3">
+                  {/* <div className="col-lg-3">
                     <small className="text-info">Password</small> <br />
                     {user.password}
-                  </div>
+                  </div> */}
                   {/*bagian untuk button edit dan delete */}
                   <div className="col-lg-4 align-self-center">
                     <button
                       type="button"
                       className={`btn btn-warning btn-sm mx-2 ${this.state.visible ? `` : `d-none`}`}
-                      onClick={() => this.ubahData(user.id_paket)}
+                      onClick={() => this.ubahData(user.id_user)}
                     >
                       Edit
                     </button>
@@ -231,7 +229,7 @@ showAddButton() {
                     <button
                       type="button"
                       className={`btn btn-danger btn-sm ${this.state.visible ? `` : `d-none`}`}
-                      onClick={() => this.hapusData(user.id_paket)}
+                      onClick={() => this.hapusData(user.id_user)}
                     >
                       Delete
                     </button>
@@ -279,12 +277,12 @@ showAddButton() {
                     value={this.state.role}
                     onChange={(ev) => this.setState({ role: ev.target.value })}
                   >
-                    <option value="admin">Admin</option>
-                    <option value="petugas">Petugas</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Kasir">kasir</option>
                   </select>
                   Password
                   <input
-                    type="text"
+                    type="password"
                     className="form-control mb-2"
                     value={this.state.password}
                     onChange={(ev) =>

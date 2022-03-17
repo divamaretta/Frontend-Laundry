@@ -11,6 +11,7 @@ import  Footer from "./footer";
 import Dashboard from "./pages/Dashboard";
 import { BrowserRouter, Route, Routes, } from "react-router-dom";
 import Transaksi from "./pages/Transaksi";
+import './style.css'
 
 
 export default function App() {
@@ -25,7 +26,7 @@ export default function App() {
           <Route path="/transaksi" element={<Navbar> <Transaksi /> </Navbar> } />
           <Route path="/formtransaksi" element={ <Navbar> <FormTransaksi /> </Navbar> } />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
     </BrowserRouter>
     
   );

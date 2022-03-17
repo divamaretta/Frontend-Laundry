@@ -23,7 +23,7 @@ export default class FormTransaksi extends React.Component {
   }
 
   getMember() {
-    let endpoint = `${baseUrl}/transaksi`;
+    let endpoint = `${baseUrl}/member`;
     axios
       .get(endpoint, authorization)
       .then((response) => {
@@ -38,12 +38,10 @@ export default class FormTransaksi extends React.Component {
 
     let user = JSON.parse(localStorage.getItem("user"));
 
-    if(user.role !== 'Admin' && user.role !== 'kasir') {
-      window.alert(
-      `Maaf Anda tidak berhak untuk mengakses halaman ini`
-      )
+    if (user.role !== "Admin" && user.role !== "kasir") {
+      window.alert(`Maaf Anda tidak berhak untuk mengakses halaman ini`);
 
-      window.location.href = "/"
+      window.location.href = "/";
     }
   }
 
@@ -70,7 +68,7 @@ export default class FormTransaksi extends React.Component {
   }
 
   getPaket() {
-    let endpoint = `${baseUrl}/transaksi`;
+    let endpoint = `${baseUrl}/paket`;
     axios
       .get(endpoint, authorization)
       .then((response) => {
@@ -106,6 +104,27 @@ export default class FormTransaksi extends React.Component {
   }
 
   simpanTransaksi() {
+    if (document.getElementById("member").value == "") {
+      alert("missing member");
+      return;
+    }
+    if (document.getElementById("tgl").value == "") {
+      alert("missing tanggal transaksi");
+      return;
+    }
+    if (document.getElementById("batas_waktu").value == "") {
+      alert("missing batas waktu");
+      return;
+    }
+    if (document.getElementById("tgl_bayar").value == "") {
+      alert("missing tanggal transaksi");
+      return;
+    }
+    if (document.getElementById("status").value == "") {
+      alert("missing status");
+      return;
+    }
+
     let endpoint = `${baseUrl}/transaksi`;
     let user = JSON.parse(localStorage.getItem("user"));
     let newData = {
@@ -137,15 +156,20 @@ export default class FormTransaksi extends React.Component {
           Member
           <select
             className="form-control mb-2"
+            id="member"
             value={this.state.id_member}
             onChange={(e) => this.setState({ id_member: e.target.value })}
           >
+            <option value="" selected hidden>
+              Pilih Member
+            </option>
             {this.state.members.map((member) => (
               <option value={member.id_member}>{member.nama}</option>
             ))}
           </select>
           Tanggal Transaksi
           <input
+            id="tgl"
             type="date"
             className="form-control mb-2"
             value={this.state.tgl}
@@ -153,6 +177,7 @@ export default class FormTransaksi extends React.Component {
           />
           Batas Waktu
           <input
+            id="batas_waktu"
             type="date"
             className="form-control mb-2"
             value={this.state.batas_waktu}
@@ -160,6 +185,7 @@ export default class FormTransaksi extends React.Component {
           />
           Tanggal Bayar
           <input
+            id="tgl_bayar"
             type="date"
             className="form-control mb-2"
             value={this.state.tgl_bayar}
@@ -167,6 +193,7 @@ export default class FormTransaksi extends React.Component {
           />
           Status Bayar
           <select
+            id="status"
             className="form-control mb-2"
             value={this.state.dibayar}
             onChange={(e) => this.setState({ dibayar: e.target.value })}
@@ -201,16 +228,17 @@ export default class FormTransaksi extends React.Component {
                 >
                   Hapus
                 </button>
-                <button
-                  className="btn btn-success btn-sm"
-                  type="submit"
-                  onClick={() => this.simpanTransaksi()}
-                >
-                  Simpan
-                </button>
               </div>
             </div>
           ))}
+          <br />
+          <button
+            className="btn btn-success btn-sm"
+            type="submit"
+            onClick={() => this.simpanTransaksi()}
+          >
+            Simpan
+          </button>
           {/* modal untuk pilihan paket */}
           <div className="modal" id="modal_paket">
             <div className="modal-dialog modal-md">
@@ -228,7 +256,9 @@ export default class FormTransaksi extends React.Component {
                         this.setState({ id_paket: e.target.value })
                       }
                     >
-                      <option value="">Pilih Paket</option>
+                      <option value="" selected hidden>
+                        Pilih Paket
+                      </option>
                       {this.state.pakets.map((paket) => (
                         <option value={paket.id_paket}>
                           {paket.jenis_paket}

@@ -151,7 +151,7 @@ class Member extends React.Component {
     if (window.confirm("Apakah anda yakin menghapus data ini?")) {
       //mencari posisi index dari data yang akan dihapus
 
-      let endpoint = `${baseUrl}/member` + id_member;
+      let endpoint = `${baseUrl}/member/${id_member}`
       axios
         .delete(endpoint, authorization)
         .then((response) => {
@@ -191,7 +191,7 @@ class Member extends React.Component {
     })
 
     //cara kedua
-    if (this.state.role === "Admin" || this.state.role === "kasir") {
+    if (user.role === "Admin" || user.role === "Kasir") {
       this.setState({
         visible : true
       })     
@@ -217,7 +217,19 @@ class Member extends React.Component {
 
   render() {
     return (
+      <div className="container">
       <div className="card">
+        <div className="row">
+          <div className="col-lg-5">
+            buat gambar
+          </div>
+          <div className="col-lg-7">
+            <h1></h1>
+            <div className="align-self-center d-grid gap-2 d-md-flex justify-content-md-end">
+            {this.showAddButton()}
+          </div>
+          </div>
+          </div>  
         <div className="card-header bg-primary">
           <h4 className="text-white">List Daftar Member</h4>
         </div>
@@ -269,9 +281,7 @@ class Member extends React.Component {
             ))}
           </ul>
           <br />
-          <div className="align-self-center d-grid gap-2 d-md-flex justify-content-md-end">
-            {this.showAddButton()}
-          </div>
+          
           <br />
         </div>
         {/* form modal member*/}
@@ -331,6 +341,7 @@ class Member extends React.Component {
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   }

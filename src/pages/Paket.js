@@ -52,7 +52,7 @@ class Paket extends React.Component {
         .catch((error) => console.log(error));
       this.modalPaket.hide();
     } else if (this.state.action === "ubah") {
-      let endpoint = `${baseUrl}/paket` + this.state.id_paket;
+      let endpoint = `${baseUrl}/paket/` + this.state.id_paket;
 
       let data = {
         jenis_paket: this.state.jenis_paket,
@@ -87,14 +87,14 @@ class Paket extends React.Component {
     //mencari posisi index dari data paket
     //berdasarkan id member nya pada array "pakets"
 
-    let index = this.state.pakets.findIndex(
+    let index = this.state.list_paket.findIndex(
       (paket) => paket.id_paket === id_paket
     );
 
     this.setState({
-      id_paket: this.state.pakets[index].id_paket,
-      jenis_paket: this.state.pakets[index].jenis_paket,
-      harga: this.state.pakets[index].harga,
+      id_paket: this.state.list_paket[index].id_paket,
+      jenis_paket: this.state.list_paket[index].jenis_paket,
+      harga: this.state.list_paket[index].harga,
       action: "ubah",
     });
   }
@@ -103,7 +103,7 @@ class Paket extends React.Component {
     if (window.confirm("Apakah anda yakin menghapus data ini?")) {
       //mencari posisi index data yang akan dihapus
 
-      let endpoint = `${baseUrl}/paket` + id_paket;
+      let endpoint = `${baseUrl}/paket/` + id_paket;
       axios
         .delete(endpoint, authorization)
         .then((response) => {
@@ -144,7 +144,7 @@ class Paket extends React.Component {
     })
 
     //cara kedua
-    if (this.state.role === "Admin" || this.state.role === "kasir") {
+    if (user.role === "Admin" || user.role === "Kasir") {
       this.setState({
         visible : true
       })     

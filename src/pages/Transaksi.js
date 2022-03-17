@@ -2,7 +2,10 @@ import React from "react";
 import axios from "axios";
 import { baseUrl, authorization } from "../config";
 import ReactToPdf from "react-to-pdf";
-import domToPdf from 'dom-to-pdf'
+import domToPdf from 'dom-to-pdf';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
 
 class Transaksi extends React.Component {
   constructor() {
@@ -39,12 +42,13 @@ class Transaksi extends React.Component {
       return (
         <div className="badge bg-info">
           Transaksi Baru
-          <br />
+          
           <a
             onClick={() => this.changeStatus(id_transaksi, 2)}
             className="text-dark"
           >
-            Click here to the next level
+            <i class="fa-solid fa-forward mx-2 text-white"></i>
+            
           </a>
         </div>
       );
@@ -52,12 +56,12 @@ class Transaksi extends React.Component {
       return (
         <div className="badge bg-warning">
           Sedang diproses
-          <br />
+          
           <a
             onClick={() => this.changeStatus(id_transaksi, 3)}
             className="text-dark"
           >
-            Click here to the next level
+            <i class="fa-solid fa-forward mx-2 text-white"></i>
           </a>
         </div>
       );
@@ -65,12 +69,11 @@ class Transaksi extends React.Component {
       return (
         <div className="badge bg-secondary">
           Siap diambil
-          <br />
           <a
             onClick={() => this.changeStatus(id_transaksi, 4)}
             className="text-dark"
           >
-            Click here to the next level
+            <i class="fa-solid fa-forward mx-2 text-white"></i>
           </a>
         </div>
       );
@@ -103,12 +106,11 @@ class Transaksi extends React.Component {
       return (
         <div className="badge bg-danger text-white">
           Belum Dibayar
-          <br />
           <a
             className="text-primary"
             onClick={() => this.changeStatusBayar(id_transaksi, 1)}
           >
-            Click here to change paid status
+            <i class="fa-solid fa-forward mx-2 text-white"></i>
           </a>
         </div>
       );
@@ -213,6 +215,7 @@ componentDidMount(){
                   {/* Status Area */}
                   <div className="col-lg-3">
                     <small className="text-info">Status Transaksi</small>
+                    <br/>
                     {this.convertStatus(trans.id_transaksi, trans.status)}
                   </div>
                   {/* Status Pembayaran Area */}
@@ -228,11 +231,10 @@ componentDidMount(){
                   </div>
                   {/* this is delete button */}
                   <div className="col-lg-3">
-                    <small className="text-info">Option</small> <br />
                     <button
                       className="btn btn-sm btn-danger"
                       onClick={() => this.deleteTransaksi(trans.id_transaksi)}>
-                      Hapus
+                      <i class="fa-solid fa-user-xmark"></i>
                     </button>
                   </div>
                 </div>

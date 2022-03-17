@@ -10,24 +10,24 @@ function Logout() {
 export default function Navbar(props) {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-warning">
-        <div className="container-fluid">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div className="container">
           {/* brand */}
-          <a className="navbar-brand"> Laundry </a>
+          <a className="navbar-brand"> La la laundry </a>
 
           {/* button toggler */}
           <button
             className="navbar-toggler"
             data-bs-toggle="collapse"
-            data-bs-target="#myNav"
-          >
+            data-bs-target="#myNav">
             <span className="navbar-toggler-icon"></span>
           </button>
 
           {/* define menus */}
           <div className="collapse navbar-collapse" id="myNav">
             <ul className="navbar-nav me-auto mt-2 nt-lg-0">
-            <li className="Home">
+            <li className="nav-item">
                 <Link to="/" className="nav-link">
                   Home
                 </Link>
@@ -58,7 +58,7 @@ export default function Navbar(props) {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/auth" className="nav-link" onClick={() => Logout()}>
+                <Link to="/login" className="nav-link" onClick={() => Logout()}>
                   Logout
                 </Link>
               </li>
