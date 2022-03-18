@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { baseUrl, authorization } from "../config";
+import { baseUrl, authorization, formatNumber } from "../config";
 import ReactToPdf from "react-to-pdf";
 import domToPdf from 'dom-to-pdf';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -227,7 +227,7 @@ componentDidMount(){
                   {/* this is total */}
                   <div className="col-lg-3">
                     <small className="text-info">Total</small> <br />
-                    Rp {trans.total}
+                    Rp {formatNumber(trans.total)}
                   </div>
                   {/* this is delete button */}
                   <div className="col-lg-3">
@@ -248,10 +248,10 @@ componentDidMount(){
                     {/* area quantity col-2 */}
                     <div className="col-lg-2">Qty: {detail.qty}</div>
                     {/* area harga paket col-3 */}
-                    <div className="col-lg-3">@ Rp {detail.paket.harga}</div>
+                    <div className="col-lg-3">@ Rp { formatNumber(detail.paket.harga)}</div>
                     {/* area harga total col-4 */}
                     <div className="col-lg-4">
-                      Rp {detail.paket.harga * detail.qty}
+                      Rp {formatNumber (detail.paket.harga * detail.qty)}
                     </div>
                   </div>
                 ))}

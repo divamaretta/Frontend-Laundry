@@ -14,6 +14,7 @@ class User extends React.Component {
       password: "",
       role: "",
       action: "",
+      fillPassword: true,
 
       users: [],
     };
@@ -31,6 +32,7 @@ class User extends React.Component {
       role: "Admin",
       id_user: Math.random(1, 10000000),
       action: "tambah",
+      fillPassword: true,
     });
   }
 
@@ -51,7 +53,7 @@ class User extends React.Component {
         username: this.state.username,
         password: this.state.password,
         role: this.state.role,
-      };
+      }
 
       //let temp = this.state.users
       //temp.push(newUser)
@@ -71,9 +73,13 @@ class User extends React.Component {
         id_user: this.state.id_user,
         nama: this.state.nama,
         username: this.state.username,
-        password: this.state.password,
         role: this.state.role,
-      };
+      }
+
+      if (this.state.fillPassword === true) {
+        newUser.password = this.state.password
+      }
+      
       axios
         .put(endpoint, newUser, authorization)
         .then((response) => {
@@ -115,6 +121,7 @@ class User extends React.Component {
       password: "",
       role: this.state.users[index].role,
       action: "ubah",
+      fillPassword: false
     });
   }
 
@@ -122,7 +129,7 @@ class User extends React.Component {
     if (window.confirm("Apakah anda yakin menghapus data ini?")) {
       //mencari posisi index dari data yang akan dihapus
 
-      let endpoint = `${baseUrl}/users/${id_user}`
+      let endpoint = `${baseUrl}/users/${id_user}`;
       axios
         .delete(endpoint, authorization)
         .then((response) => {
@@ -158,32 +165,58 @@ class User extends React.Component {
     // cara pertama
     this.setState({
       role: user.role,
-    })
+    });
 
     //cara kedua
     if (user.role === "Admin" || user.role === "kasir") {
       this.setState({
-        visible : true
-      })     
-  }else {
-    this.setState({
-      visible : false
-    })
+        visible: true,
+      });
+    } else {
+      this.setState({
+        visible: false,
+      });
+    }
   }
-}
 
-showAddButton() {
-  if (this.state.role === "Admin" || this.state.role === "Kasir") {
-    return (
-      <button
-        className="btn btn-success me-md-2"
-        type="button"
-        onClick={() => this.tambahData()}>
+  showAddButton() {
+    if (this.state.role === "Admin" || this.state.role === "Kasir") {
+      return (
+        <button
+          className="btn btn-success me-md-2"
+          type="button"
+          onClick={() => this.tambahData()}
+        >
           Tambah
-      </button>
-    );
+        </button>
+      );
+    }
   }
-}
+
+  showPassword() {
+    if (this.state.fillPassword === true) {
+      return (
+        <div>
+          Password
+          <input
+            type="password"
+            className="form-control mb-1"
+            required
+            value={this.state.password}
+            onChange={(ev) => this.setState({ password: ev.target.value })}
+          ></input>
+        </div>
+      );
+    } else {
+      return (
+        <button
+          className="mb-1 btn btn-success"
+          onClick={() => this.setState({ fillPassword: true })}
+        > Change Password 
+        </button>
+      )
+    }
+  }
 
   render() {
     return (
@@ -220,7 +253,9 @@ showAddButton() {
                   <div className="col-lg-4 align-self-center">
                     <button
                       type="button"
-                      className={`btn btn-warning btn-sm mx-2 ${this.state.visible ? `` : `d-none`}`}
+                      className={`btn btn-warning btn-sm mx-2 ${
+                        this.state.visible ? `` : `d-none`
+                      }`}
                       onClick={() => this.ubahData(user.id_user)}
                     >
                       Edit
@@ -228,7 +263,9 @@ showAddButton() {
 
                     <button
                       type="button"
-                      className={`btn btn-danger btn-sm ${this.state.visible ? `` : `d-none`}`}
+                      className={`btn btn-danger btn-sm ${
+                        this.state.visible ? `` : `d-none`
+                      }`}
                       onClick={() => this.hapusData(user.id_user)}
                     >
                       Delete
@@ -280,16 +317,7 @@ showAddButton() {
                     <option value="Admin">Admin</option>
                     <option value="Kasir">kasir</option>
                   </select>
-                  Password
-                  <input
-                    type="password"
-                    className="form-control mb-2"
-                    value={this.state.password}
-                    onChange={(ev) =>
-                      this.setState({ password: ev.target.value })
-                    }
-                    required
-                  />
+                  {this.showPassword()}
                   <button className="btn btn-success btn-sm" type="submit">
                     Simpan
                   </button>

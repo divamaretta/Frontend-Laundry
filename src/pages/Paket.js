@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
-import { baseUrl, authorization } from "../config";
+import { baseUrl, authorization, formatNumber } from "../config";
 
 //nama class paket sesuai dengan file
 class Paket extends React.Component {
