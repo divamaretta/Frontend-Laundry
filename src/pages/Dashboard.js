@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { baseUrl, formatNumber, authorization } from "../config";
-import gambar from "./welcome laundry.png";
+import gambar from "./HOME LAUNDRY.png";
 
 export default class Dashboard extends React.Component {
   constructor() {
@@ -11,8 +11,10 @@ export default class Dashboard extends React.Component {
       jmlMember: 0,
       jmlPaket: 0,
       jmlUser: 0,
+      nmUser: 0,
       jmlTransaksi: 0,
       income: 0,
+
     };
 
     if (!localStorage.getItem("token")) {
@@ -37,7 +39,10 @@ export default class Dashboard extends React.Component {
       .then((response) => {
         this.setState({ jmlUser: response.data.length });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+    
+
+      
 
     //get jumlah paket
     endpoint = `${baseUrl}/paket`;
@@ -76,6 +81,9 @@ export default class Dashboard extends React.Component {
 
   componentDidMount() {
     this.getSummary();
+    let user = JSON.parse(localStorage.getItem("user"))
+        this.setState({NMUser : user.nama, userRole: user.role})
+
   }
 
   render() {
@@ -86,12 +94,11 @@ export default class Dashboard extends React.Component {
             <div className="hello">
               <div className="row">
                 <div className="col-lg-5">
-                  <h1>Selamat Datang!</h1>
-                  <button className="btn btn-success">+ Transaksi</button>
+                  <h2><span>Semangat </span> Menyambut <span> Hari Baru </span> dan <span>semangat </span> <span> baru</span></h2>
                 </div>
                 <div className="col-lg-2"></div>
                 <div className="col-lg-5">
-                  <img src={gambar} width="400"></img>
+                  <img src={gambar} width="500"></img>
                 </div>
               </div>
             </div>
@@ -109,19 +116,6 @@ export default class Dashboard extends React.Component {
                   </div>
                 </div>
               </div>
-              {/* <div className="col-lg-4">
-                <div className="card">
-                  <div className="row">
-                    <div className="col-lg-5">
-                      <i class="fa-solid fa-id-card-clip bg-primary p-4 text-white"></i>
-                    </div>
-                    <div className="col-lg-7">
-                      <h4 className="card-title">Data User</h4>
-                      <h2>{this.state.jmlUser}</h2>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
               <div className="col-lg-4">
                 <div className="card">
                   <div className="row">
@@ -150,71 +144,24 @@ export default class Dashboard extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-lg-12 text-center">
-            <div className="card">
-              <div className="row">
-              <div className="col-lg-12">
-                <i class="fa-solid fa-chart-line-up bg-primary p-4 text-white"></i>
-              </div>
-              <h4 className="card-title">Income</h4>
-              <h2>Rp {formatNumber(this.state.income)}</h2>
-            </div>
-            </div>
-          </div>
-          {/* <div className="col-lg-6 col-md-6">
-            <div className="card">
-              <div className="row">
-              <div className="col-lg-4 text center">
-                      <i class="fa-solid fa-address-book bg-danger"></i>
-                    </div>
-                <h4 className="card-title">Data Member</h4>
-                <h2>{this.state.jmlMember}</h2>
+          <br></br>
+          <div className="row summary">
+            <div className="col-lg-12">
+              <div className="card">
+                
+                  <div className="col-lg-12">
+                    <i class="fa-solid fa-chart-line bg-primary p-4 text-white "></i>
+                  </div>
+                  <div className="col-lg-12">
+                    <h4 className="card-title">Income</h4>
+                    <h2>Rp {formatNumber(this.state.income)}</h2>
+                  </div>
                 </div>
-            </div>
-          </div>
-
-          <div className="col-lg-6 col-md-6">
-            <div className="card text-center bg-info m-1 text-white">
-              <div className="card-body">
-                <h4 className="card-title">Data User</h4>
-                <h2>{this.state.jmlUser}</h2>
-                <h6>Paket yang kami layani dengan sepenuh hati</h6>
               </div>
             </div>
           </div>
-
-          <div className="col-lg-6 col-md-6">
-            <div className="card text-center bg-info m-1 text-white">
-              <div className="card-body">
-                <h4 className="card-title">Data Paket</h4>
-                <h2>{this.state.jmlPaket}</h2>
-                <h6>Paket yang kami layani dengan sepenuh hati</h6>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-lg-6 col-md-6">
-            <div className="card text-center bg-dark m-1 text-white">
-              <div className="card-body">
-                <h4 className="card-title">Data Transaksi</h4>
-                <h2>{this.state.jmlTransaksi}</h2>
-                <h6>Transaksi yang kami layani dengan sepenuh hati</h6>
-              </div>
-            </div>
-          </div>
-
-
-          <div className="col-lg-12">
-            <div className="card bg-secondary m-1">
-              <div className="card-body">
-                <h4 className="card-title">Income</h4>
-                <h2>Rp {formatNumber(this.state.income)}</h2>
-                <h6>Transaksi yang kami layani dengan sepenuh hati</h6>
-              </div>
-            </div>
-          </div> */}
         </div>
-      </div>
+      
     );
   }
 }

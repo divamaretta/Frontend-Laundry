@@ -8,12 +8,11 @@
 .login .card{
     background-color: #9ADCFF !important;
 }
-.dashboard-page .hello h1{
-    /* color : #1C658C */
-     font-size: 50px;
+.dashboard-page .hello h2{
+    font-size: 50px;
     font-weight: 700;
     font-family: 'Source Sans Pro', sans-serif;
-    background: -webkit-linear-gradient(#eee, #398AB9);
+    background: -webkit-linear-gradient(#4a8189, #629ba7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; 
 }

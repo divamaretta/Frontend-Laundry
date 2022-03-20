@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "./logo.png";
 
 function Logout() {
   //remove data token dan user local storage
@@ -14,7 +15,8 @@ export default function Navbar(props) {
 
         <div className="container">
           {/* brand */}
-          <a className="navbar-brand"> La la laundry </a>
+          <a href="/" className="navbar-brand">
+          <img src={logo} class="img" width="50" /></a>
 
           {/* button toggler */}
           <button
