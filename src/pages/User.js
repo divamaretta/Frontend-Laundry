@@ -2,6 +2,8 @@ import React from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
 import { baseUrl, authorization } from "../config";
+import gambar from "./user.png";
+import avatar from "./avatar.png"
 
 //nama class member sesuai dengan file
 class User extends React.Component {
@@ -183,11 +185,13 @@ class User extends React.Component {
     if (this.state.role === "Admin" || this.state.role === "Kasir") {
       return (
         <button
-          className="btn btn-success me-md-2"
+          className="btn btn-blue me-md-2 text-white"
           type="button"
           onClick={() => this.tambahData()}
         >
-          Tambah
+          <i class="fa-solid fa-user-plus "></i> 
+           Tambah user
+
         </button>
       );
     }
@@ -210,7 +214,7 @@ class User extends React.Component {
     } else {
       return (
         <button
-          className="mb-1 btn btn-success"
+          className="btn btn-success btn-sm mx-2"
           onClick={() => this.setState({ fillPassword: true })}
         > Change Password 
         </button>
@@ -220,22 +224,47 @@ class User extends React.Component {
 
   render() {
     return (
-      <div className="card">
+      <div className="container user-page">
+      <div className="">
+      <div className="top-word">
+        <div className="row">
+        <div className="col-lg-5">
+                  <h2><span>Selamat </span> bekerja <span> selamat </span> datang <span> dilaman </span> <span> member </span></h2>
+                  <div className="">
+                    {this.showAddButton()}
+                  </div>
+                </div>
+                <div className="col-lg-1"></div>
+                <div className="col-lg-6">
+                  <img src={gambar} width="500"></img>
+                </div>
+                </div>
+                </div>
+          <div className="col-lg-7">
+            <h1></h1>
+            
+          </div>
+          </div>       
         <div className="card-header bg-primary">
-          <h4 className="text-white">List Daftar User</h4>
+          <h4 className="text-white">Data User</h4>
         </div>
+        <div className="card">
         <div className="card-body">
-          <ul className="list-group">
+          <ul className="list-group list-data">
             {this.state.users.map((user) => (
-              <li className="list-group-item">
+              <li className="list-group-item mt-3">
                 <div className="row">
+                  {/*bagian untuk icon user*/}
+                  <div className="col-lg-1">
+                  <img src={avatar} width="50" ></img>
+                  </div>
                   {/*bagian untuk nama*/}
                   <div className="col-lg-3">
                     <small className="text-info">Nama</small> <br />
                     {user.nama}
                   </div>
                   {/*bagian untuk jenis username*/}
-                  <div className="col-lg-2">
+                  <div className="col-lg-3">
                     <small className="text-info">Username</small> <br />
                     {user.username}
                   </div>
@@ -250,7 +279,7 @@ class User extends React.Component {
                     {user.password}
                   </div> */}
                   {/*bagian untuk button edit dan delete */}
-                  <div className="col-lg-4 align-self-center">
+                  <div className="col-lg-3 align-self-center">
                     <button
                       type="button"
                       className={`btn btn-warning btn-sm mx-2 ${
@@ -276,9 +305,6 @@ class User extends React.Component {
             ))}
           </ul>
           <br />
-          <div className="align-self-center d-grid gap-2 d-md-flex justify-content-md-end">
-            {this.showAddButton()}
-          </div>
           <br />
         </div>
         {/* form modal member*/}
@@ -318,14 +344,17 @@ class User extends React.Component {
                     <option value="Kasir">kasir</option>
                   </select>
                   {this.showPassword()}
+                 
                   <button className="btn btn-success btn-sm" type="submit">
                     Simpan
                   </button>
+                  
                 </form>
               </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   }

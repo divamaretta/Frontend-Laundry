@@ -147,51 +147,62 @@ export default class FormTransaksi extends React.Component {
 
   render() {
     return (
+      <div className="container">
       <div className="card">
         <div className="card-header bg-primary">
           <h4 className="text-white">Form Transaksi</h4>
         </div>
 
         <div className="card-body">
-          Member
-          <select
-            className="form-control mb-2"
-            id="member"
-            value={this.state.id_member}
-            onChange={(e) => this.setState({ id_member: e.target.value })}
-          >
-            <option value="" selected hidden>
-              Pilih Member
-            </option>
-            {this.state.members.map((member) => (
-              <option value={member.id_member}>{member.nama}</option>
-            ))}
-          </select>
-          Tanggal Transaksi
-          <input
-            id="tgl"
-            type="date"
-            className="form-control mb-2"
-            value={this.state.tgl}
-            onChange={(e) => this.setState({ tgl: e.target.value })}
-          />
-          Batas Waktu
-          <input
-            id="batas_waktu"
-            type="date"
-            className="form-control mb-2"
-            value={this.state.batas_waktu}
-            onChange={(e) => this.setState({ batas_waktu: e.target.value })}
-          />
-          Tanggal Bayar
-          <input
-            id="tgl_bayar"
-            type="date"
-            className="form-control mb-2"
-            value={this.state.tgl_bayar}
-            onChange={(e) => this.setState({ tgl_bayar: e.target.value })}
-          />
-          Status Bayar
+          <div className="col-lg-5">
+            Nama Member
+            <select
+              className="form-control mb-2"
+              id="member"
+              value={this.state.id_member}
+              onChange={(e) => this.setState({ id_member: e.target.value })}
+            >
+              <option value="" selected hidden>
+                Pilih Member
+              </option>
+              {this.state.members.map((member) => (
+                <option value={member.id_member}>{member.nama}</option>
+              ))}
+            </select>
+          </div>
+          <div className="row">
+            <div className="col-lg-6">
+              Tanggal Transaksi
+              <input
+                id="tgl"
+                type="date"
+                className="form-control mb-2"
+                value={this.state.tgl}
+                onChange={(e) => this.setState({ tgl: e.target.value })}
+              />
+            </div>
+            <div className="col-lg-6">
+              Batas Waktu
+              <input
+                id="batas_waktu"
+                type="date"
+                className="form-control mb-2"
+                value={this.state.batas_waktu}
+                onChange={(e) => this.setState({ batas_waktu: e.target.value })}
+              />
+            </div>
+            <div className="col-lg-6">
+              Tanggal Bayar
+              <input
+                id="tgl_bayar"
+                type="date"
+                className="form-control mb-2"
+                value={this.state.tgl_bayar}
+                onChange={(e) => this.setState({ tgl_bayar: e.target.value })}
+              />
+            </div>
+            <div className="col-lg-6">
+            Status Bayar
           <select
             id="status"
             className="form-control mb-2"
@@ -199,46 +210,52 @@ export default class FormTransaksi extends React.Component {
             onChange={(e) => this.setState({ dibayar: e.target.value })}
           >
             <option value={true}>Sudah Dibayar</option>
-            <option value={false}> Dibayar</option>
+            <option value={false}>Belum Dibayar</option>
           </select>
-          <button
-            className="btn btn-success btn-sm"
-            onClick={() => this.addPaket()}
-          >
-            Tambah Paket
-          </button>
+            </div>
+          <div>
+            <button
+              className="btn btn-success btn-sm"
+              onClick={() => this.addPaket()}
+            >
+              Tambah Paket<br/>
+            </button> 
+          </div>
           {/* tampilkan isi detail */}
           {/*  area detail transaksi */}
-          <h5> Detail Transaksi </h5>
+          <div className="card-header bg-warning mt-3">
+          <h4 className="text-white">Detail Transaksi</h4>
+        </div>
+
           {this.state.detail_transaksi.map((detail) => (
             <div className="row">
               {/* area jenis paket col-3 */}
-              <div className="col-lg-2">{detail.jenis_paket}</div>
+              <div className="col-lg-2 mt-3">{detail.jenis_paket}</div>
               {/* area quantity col-2 */}
-              <div className="col-lg-2">Qty: {detail.qty}</div>
+              <div className="col-lg-2 mt-3">Qty: {detail.qty}</div>
               {/* area harga paket col-3 */}
-              <div className="col-lg-3">@ Rp {detail.harga}</div>
+              <div className="col-lg-3 mt-3">@ Rp {detail.harga}</div>
               {/* area harga total col-4 */}
-              <div className="col-lg-3">Rp {detail.harga * detail.qty}</div>
+              <div className="col-lg-3 mt-3">Rp {detail.harga * detail.qty}</div>
               <div className="col-lg-2">
                 <button
                   type="submit"
-                  className="btn btn-warning btn-sm"
+                  className="btn btn-danger btn-sm mt-3"
                   onClick={() => this.hapusData(detail.id_paket)}
                 >
                   Hapus
-                </button>
+                </button> <br/>
               </div>
             </div>
           ))}
           <br />
           <button
-            className="btn btn-success btn-sm"
+            className="btn btn-success btn-sm mt-4"
             type="submit"
             onClick={() => this.simpanTransaksi()}
           >
             Simpan
-          </button>
+          </button> <br />
           {/* modal untuk pilihan paket */}
           <div className="modal" id="modal_paket">
             <div className="modal-dialog modal-md">
@@ -274,13 +291,15 @@ export default class FormTransaksi extends React.Component {
                     />
                     <button type="submit" className="btn btn-success">
                       Tambah
-                    </button>
+                    </button> <br />
                   </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     );
   }

@@ -8,6 +8,7 @@
 .login .card{
     background-color: #9ADCFF !important;
 }
+/* dashboard area */
 .dashboard-page .hello h2{
     font-size: 50px;
     font-weight: 700;
@@ -32,5 +33,107 @@
     border-radius: 20px;
     padding: 20px;
     box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
+}
+.dashboard-page .card1{
+    color: aqua;
+}
+.dashboard-page .bg-danger{
+    background-color: #FFB72B !important;
+}
+.dashboard-page .bg-warning{
+    background-color: #D18CE0 !important;
+}
+.dashboard-page .bg-success{
+    background-color: #B5FE83 !important;
+}
+.dashboard-page .bg-primary{
+    background-color: #FF6363 !important;
+}
 
+/* member area */
+.member-page .border{
+    margin-top: 0px;
+} 
+.member-page .top-word h2{
+    font-size: 50px;
+    font-weight: 700;
+    font-family: 'Source Sans Pro', sans-serif;
+    background: -webkit-linear-gradient(#b77c8e, #b77c8e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+}
+.member-page .bg-danger{
+    background-color: #dd9dac !important;
+}
+.member-page .btn-orange{
+    background-color: #7F7C82
+}
+
+/* paket area */
+.paket-page .border{
+    border: none;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
+}
+
+.paket-page .top-word h2{
+    font-size: 50px;
+    font-weight: 700;
+    font-family: 'Source Sans Pro', sans-serif;
+    background: -webkit-linear-gradient( #ffa42d, #ffa42d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+}
+.paket-page .bg-warning{
+    background-color: #ffc037 !important;
+}
+
+/* user area */
+.user-page .border{
+    margin-top: 0px;
+} 
+.user-page .top-word h2{
+    font-size: 50px;
+    font-weight: 700;
+    font-family: 'Source Sans Pro', sans-serif;
+    background: -webkit-linear-gradient(#64a5fa, #77ACF1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+}
+.user-page .btn-blue{
+    background-color: #07689F !important;
+}
+.user-page .bg-primary{
+    background-color: #77ACF1 !important;
+}
+.user-page .text-info{
+    color: #07689F  !important;
+}
+
+
+/* navbar area */
+.navbar-page .logout link{
+    margin-top: 100px;
+}
+
+/* List Transaksi */
+.transaksi-page .border{
+    margin-top: 0px;
+} 
+.transaksi-page .top-word h2{
+    font-size: 50px;
+    font-weight: 700;
+    font-family: 'Source Sans Pro', sans-serif;
+    background: -webkit-linear-gradient(#b77c8e, #b77c8e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+}
+.list-data-transaksi li{
+    box-shadow: 0px 0px 10px 0px rgba(153, 48, 48, 0.2);
+    border-color: none !important;
+}
+.list-data-transaksi li{
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
+    border: #D18CE0 !important;
 }

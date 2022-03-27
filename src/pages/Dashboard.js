@@ -2,6 +2,10 @@ import React from "react";
 import axios from "axios";
 import { baseUrl, formatNumber, authorization } from "../config";
 import gambar from "./HOME LAUNDRY.png";
+import bucket from "./bucket.png";
+import grafik from "./grafik.png";
+import member from "./member card.png";
+import transaksi from "./data transaksi.png";
 
 export default class Dashboard extends React.Component {
   constructor() {
@@ -14,7 +18,6 @@ export default class Dashboard extends React.Component {
       nmUser: 0,
       jmlTransaksi: 0,
       income: 0,
-
     };
 
     if (!localStorage.getItem("token")) {
@@ -39,10 +42,7 @@ export default class Dashboard extends React.Component {
       .then((response) => {
         this.setState({ jmlUser: response.data.length });
       })
-      .catch((error) => console.log(error))
-    
-
-      
+      .catch((error) => console.log(error));
 
     //get jumlah paket
     endpoint = `${baseUrl}/paket`;
@@ -81,9 +81,8 @@ export default class Dashboard extends React.Component {
 
   componentDidMount() {
     this.getSummary();
-    let user = JSON.parse(localStorage.getItem("user"))
-        this.setState({NMUser : user.nama, userRole: user.role})
-
+    let user = JSON.parse(localStorage.getItem("user"));
+    this.setState({ NMUser: user.nama, userRole: user.role });
   }
 
   render() {
@@ -94,7 +93,10 @@ export default class Dashboard extends React.Component {
             <div className="hello">
               <div className="row">
                 <div className="col-lg-5">
-                  <h2><span>Semangat </span> Menyambut <span> Hari Baru </span> dan <span>semangat </span> <span> baru</span></h2>
+                  <h2>
+                    <span>Semangat </span> Menyambut <span> Hari Baru </span>{" "}
+                    dengan <span>semangat </span> <span> baru</span>
+                  </h2>
                 </div>
                 <div className="col-lg-2"></div>
                 <div className="col-lg-5">
@@ -103,11 +105,11 @@ export default class Dashboard extends React.Component {
               </div>
             </div>
             <div className="row summary">
-              <div className="col-lg-4">
+              <div className="col-lg-6">
                 <div className="card">
                   <div className="row">
-                    <div className="col-lg-4">
-                      <i class="fa-solid fa-address-book bg-danger p-4 text-white"></i>
+                    <div className="col-lg-3">
+                    <img src={member} width="130"></img>
                     </div>
                     <div className="col-lg-7">
                       <h4 className="card-title">Data Member</h4>
@@ -116,11 +118,11 @@ export default class Dashboard extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4">
-                <div className="card">
+              <div className="col-lg-6">
+                <div className="card ">
                   <div className="row">
-                    <div className="col-lg-4">
-                      <i class="fa-solid fa-box-open bg-warning p-4 text-white"></i>
+                    <div className="col-lg-3">
+                    <img src={bucket} width="155"></img>
                     </div>
                     <div className="col-lg-7">
                       <h4 className="card-title">Data Paket</h4>
@@ -129,11 +131,11 @@ export default class Dashboard extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4">
-                <div className="card">
+              <div className="col-lg-6 mt-4">
+                <div className="card ">
                   <div className="row">
-                    <div className="col-lg-4">
-                      <i class="fa-solid fa-bag-shopping bg-success p-4 text-white"></i>
+                    <div className="col-lg-3">
+                    <img src={transaksi} width="150"></img>
                     </div>
                     <div className="col-lg-7">
                       <h4 className="card-title">Data Transaksi</h4>
@@ -142,26 +144,24 @@ export default class Dashboard extends React.Component {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <br></br>
-          <div className="row summary">
-            <div className="col-lg-12">
-              <div className="card">
-                
-                  <div className="col-lg-12">
-                    <i class="fa-solid fa-chart-line bg-primary p-4 text-white "></i>
+              <div className="col-lg-6 mt-4">
+                <div className="card ">
+                <div className="row">
+                  <div className="col-lg-3">
+                  <img src={grafik} width="110"></img>
                   </div>
-                  <div className="col-lg-12">
+                  <div className="col-lg-7">
                     <h4 className="card-title">Income</h4>
                     <h2>Rp {formatNumber(this.state.income)}</h2>
                   </div>
                 </div>
               </div>
+              </div>
             </div>
           </div>
+          <br></br>
         </div>
-      
+      </div>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "./logo.png";
 
 function Logout() {
@@ -9,27 +9,29 @@ function Logout() {
 }
 
 export default function Navbar(props) {
+  let user = JSON.parse(localStorage.getItem("user"));
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-
         <div className="container">
           {/* brand */}
           <a href="/" className="navbar-brand">
-          <img src={logo} class="img" width="50" /></a>
+            <img src={logo} class="img" width="50" />
+          </a>
 
           {/* button toggler */}
           <button
             className="navbar-toggler"
             data-bs-toggle="collapse"
-            data-bs-target="#myNav">
+            data-bs-target="#myNav"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
 
           {/* define menus */}
           <div className="collapse navbar-collapse" id="myNav">
             <ul className="navbar-nav me-auto mt-2 nt-lg-0">
-            <li className="nav-item">
+              <li className="nav-item">
                 <Link to="/" className="nav-link">
                   Home
                 </Link>
@@ -59,12 +61,18 @@ export default function Navbar(props) {
                   Form Transaksi
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/login" className="nav-link" onClick={() => Logout()}>
-                  Logout
-                </Link>
-              </li>
             </ul>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end text-dark pt-2">
+              <i class="fa-solid fa-user mt-1"></i>
+              Hi, {user.nama}
+            </div>
+            <div className="nav-item ">
+              <div className="link mt-2">
+                <Link to="/login" className="nav-link" onClick={() => Logout()}>
+                  <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </nav>

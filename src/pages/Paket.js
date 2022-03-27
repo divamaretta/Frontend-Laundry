@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
 import { baseUrl, authorization, formatNumber } from "../config";
+import gambar from "./paket.png";
 
 //nama class paket sesuai dengan file
 class Paket extends React.Component {
@@ -123,7 +124,7 @@ class Paket extends React.Component {
   }
 
   getData() {
-    let endpoint =  `${baseUrl}/paket`;
+    let endpoint = `${baseUrl}/paket`;
     axios
       .get(endpoint, authorization)
       .then((response) => {
@@ -141,118 +142,144 @@ class Paket extends React.Component {
     // cara pertama
     this.setState({
       role: user.role,
-    })
+    });
 
     //cara kedua
     if (user.role === "Admin" || user.role === "Kasir") {
       this.setState({
-        visible : true
-      })     
-  }else {
-    this.setState({
-      visible : false
-    })
+        visible: true,
+      });
+    } else {
+      this.setState({
+        visible: false,
+      });
+    }
   }
-}
 
-showAddButton() {
-  if (this.state.role === "Admin" || this.state.role === "kasir") {
-    return (
-      <button
-        className="btn btn-success me-md-2"
-        type="button"
-        onClick={() => this.tambahData()}>
-          Tambah
-      </button>
-    );
+  showAddButton() {
+    if (this.state.role === "Admin" || this.state.role === "Kasir") {
+      return (
+        <button
+          className="btn btn-blue me-md-2 text-white"
+          type="button"
+          onClick={() => this.tambahData()}
+        >
+          <i class="fa-solid fa-user-plus "></i> 
+           Tambah user
+
+        </button>
+      );
+    }
   }
-}
+
+ 
 
   render() {
     return (
-      <div className="card">
-        <div className="card-header bg-primary">
-          <h4 className="text-white">List Daftar Paket </h4>
-        </div>
-        <div className="card-body">
-          <ul className="list-group">
-            {this.state.list_paket.map((paket) => (
-              <li className="list-group-item">
-                <div className="row">
-                  {/*bagian untuk paket*/}
-                  <div className="col-lg-4">
-                    <small className="text-info"> Paket </small> <br />
-                    {paket.jenis_paket}
+      <div className="container paket-page ">
+        <div className="">
+          <div className="top-word">
+            <div className="row">
+              <div className="col-lg-5">
+                <h2>
+                  <span>Selamat </span> bekerja <span> selamat </span> datang{" "}
+                  <span> dilaman </span> <span> paket </span>
+                  <div className="">{this.showAddButton()}</div>
+                </h2>
+              </div>
+              <div className="col-lg-2"></div>
+              <div className="col-lg-5">
+                <img src={gambar} width="500"></img>
+              </div>
+            </div>
+          </div>
+          <div className="card-header bg-warning">
+            <h4 className="text-white">Daftar Paket </h4>
+          </div>
+          <div className="card">
+            <div className="card-body">
+              <ul className="list-group list-data-paket">
+                {this.state.list_paket.map((paket) => (
+                  <li className="list-group-item mt-3">
+                    <div className="row">
+                      {/*bagian untuk paket*/}
+                      <div className="col-lg-4">
+                        <small className="text-info"> Paket </small> <br />
+                        {paket.jenis_paket}
+                      </div>
+                      {/*bagian untuk harga*/}
+                      <div className="col-lg-4">
+                        <small className="text-info"> Harga </small> <br />
+                        Rp { formatNumber  (paket.harga)}
+                      </div>
+                      {/*bagian untuk button edit dan delete */}
+                      <div className="col-lg-4 align-self-center">
+                        <button
+                          type="button"
+                          className={`btn btn-warning btn-sm mx-2 ${
+                            this.state.visible ? `` : `d-none`
+                          }`}
+                          onClick={() => this.ubahData(paket.id_paket)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          className={`btn btn-danger btn-sm ${
+                            this.state.visible ? `` : `d-none`
+                          }`}
+                          onClick={() => this.hapusData(paket.id_paket)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <br />
+              
+              <br />
+            </div>
+            {/* form modal paket */}
+            <div className="modal" id="modal-paket">
+              <div className="modal-dialog modal-md">
+                <div className="modal-content">
+                  <div className="modal-header bg-success">
+                    <h4 className="text-white">Form Paket </h4>
                   </div>
-                  {/*bagian untuk harga*/}
-                  <div className="col-lg-4">
-                    <small className="text-info"> Harga </small> <br />
-                    {paket.harga}
-                  </div>
-                  {/*bagian untuk button edit dan delete */}
-                  <div className="col-lg-4 align-self-center">
-                    <button
-                      type="button"
-                      className={`btn btn-warning btn-sm mx-2 ${this.state.visible ? `` : `d-none`}`}
-                      onClick={() => this.ubahData(paket.id_paket)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type="button"
-                      className={`btn btn-danger btn-sm ${this.state.visible ? `` : `d-none`}`}
-                      onClick={() => this.hapusData(paket.id_paket)}
-                    >
-                      Delete
-                    </button>
+                  <div className="modal-body">
+                    <form onSubmit={(ev) => this.simpanData(ev)}>
+                      Paket
+                      <input
+                        type="text"
+                        className="form-control mb-2"
+                        value={this.state.jenis_paket}
+                        onChange={(ev) =>
+                          this.setState({
+                            jenis_paket: ev.target.value,
+                          })
+                        }
+                        required
+                      />
+                      Harga
+                      <input
+                        type="text"
+                        className="form-control mb-2"
+                        value={this.state.harga}
+                        onChange={(ev) =>
+                          this.setState({
+                            harga: ev.target.value,
+                          })
+                        }
+                        required
+                      />
+                      <button className="btn btn-success btn-sm" type="submit">
+                        Simpan
+                      </button>
+                    </form>
                   </div>
                 </div>
-              </li>
-            ))}
-          </ul>
-          <br />
-          <div className="align-self-center d-grid gap-2 d-md-flex justify-content-md-end">
-            {this.showAddButton()}
-          </div>
-          <br />
-        </div>
-        {/* form modal paket */}
-        <div className="modal" id="modal-paket">
-          <div className="modal-dialog modal-md">
-            <div className="modal-content">
-              <div className="modal-header bg-success">
-                <h4 className="text-white">Form Paket </h4>
-              </div>
-              <div className="modal-body">
-                <form onSubmit={(ev) => this.simpanData(ev)}>
-                  Paket
-                  <input
-                    type="text"
-                    className="form-control mb-2"
-                    value={this.state.jenis_paket}
-                    onChange={(ev) =>
-                      this.setState({
-                        jenis_paket: ev.target.value,
-                      })
-                    }
-                    required
-                  />
-                  Harga
-                  <input
-                    type="text"
-                    className="form-control mb-2"
-                    value={this.state.harga}
-                    onChange={(ev) =>
-                      this.setState({
-                        harga: ev.target.value,
-                      })
-                    }
-                    required
-                  />
-                  <button className="btn btn-success btn-sm" type="submit">
-                    Simpan
-                  </button>
-                </form>
               </div>
             </div>
           </div>

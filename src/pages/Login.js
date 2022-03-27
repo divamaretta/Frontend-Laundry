@@ -39,13 +39,13 @@ class Login extends React.Component {
   render() {
     return (
       <div className=" login container d-flex h-100 justify-content-center align-items-center">
-        <div className="col-lg-8" style={{ margin: "0 auto" }}>
+        <div className="col-lg-5" style={{ margin: "0 auto" }}>
           <div className="card bg-info">
             <div className="row">
               <div className="col-lg-6">
                 
               </div>
-              <div className="col-lg-6 p-4">
+              <div className="col-lg-5 p-4">
                 <div className="card-body">
                 <div className="text-center header" >
                   <h5>Selamat Datang</h5>
